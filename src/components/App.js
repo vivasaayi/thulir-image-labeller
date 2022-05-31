@@ -4,16 +4,20 @@ import Canvas from "./Canvas";
 import RegionsList from "./RegionsList";
 
 import useStore from "../store";
+import Labels from "./Labels";
 
 export default () => {
     const { setBrightness } = useStore();
 
     return (
         <React.Fragment>
-            <h2>Image annotate prototype</h2>
-            <p className="description">Draw objects conturs on top of the image</p>
             <div className="App">
                 <div className="left-panel">
+                    <div>
+                        <Labels />
+                    </div>
+                    <br />
+                    <br />
                     Brigthess
                     <input
                         id="slider"

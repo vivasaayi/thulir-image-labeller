@@ -1,5 +1,5 @@
 import React from "react";
-import { Layer, Line } from "react-konva";
+import {Layer, Line, Rect} from "react-konva";
 
 import useStore from "../store";
 
@@ -10,27 +10,27 @@ export default () => {
     const selectedId = useStore(s => s.selectedRigionId);
     const selectRegion = useStore(s => s.selectRegion);
 
+    const labels = useStore(s => s.labels);
+
     return (
         <Layer ref={layerRef}>
             {regions.map(region => {
                 const isSelected = region.id === selectedId;
+                debugger
+                const x1y1 = region.points[0];
+                const x2y2 = region.points[region.points.length -1]
+                const width = x2y2.x - x1y1.x;
+                const height = x2y2.y - x1y1.y;
+                const selectedColor = labels[region.label].color;
                 return (
                     <React.Fragment key={region.id}>
-                        {/* first we need to erase previous drawings */}
-                        {/* we can do it with  destination-out blend mode */}
-                        <Line
-                            globalCompositeOperation="destination-out"
-                            points={region.points.flatMap(p => [p.x, p.y])}
-                            fill="black"
+                        <Rect
+                            x={x1y1.x}
+                            y={x1y1.y}
+                            width={width}
+                            height={height}
+                            fill={selectedColor}
                             listening={false}
-                            closed
-                        />
-                        {/* then we just draw new region */}
-                        <Line
-                            name="region"
-                            points={region.points.flatMap(p => [p.x, p.y])}
-                            fill={region.color}
-                            closed
                             opacity={isSelected ? 1 : 0.8}
                             onClick={() => {
                                 selectRegion(region.id);

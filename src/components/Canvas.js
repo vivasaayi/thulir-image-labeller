@@ -84,6 +84,7 @@ export default () => {
     const setRegions = useStore((state) => state.setRegions);
 
     const selectRegion = useStore((s) => s.selectRegion);
+    const selectedLabel = useStore(s => s.selectedLabel);
 
     React.useEffect(() => {
         function checkSize() {
@@ -130,7 +131,7 @@ export default () => {
                     const point = getRelativePointerPosition(e.target.getStage());
                     const region = {
                         id: id++,
-                        color: Konva.Util.getRandomColor(),
+                        label: selectedLabel,
                         points: [point],
                     };
                     setRegions(regions.concat([region]));

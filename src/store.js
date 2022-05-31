@@ -22,7 +22,39 @@ const useStore = create(set => ({
     selectRegion: selectedRigionId => set({ selectedRigionId }),
 
     brightness: 0,
-    setBrightness: brightness => set({ brightness })
+    setBrightness: brightness => set({ brightness }),
+
+    labels: {
+        youngleaf: {
+            color: "lightgreen"
+        },
+        leaf: {
+            color: "green"
+        },
+        dryleaf: {
+            color: "grey"
+        },
+        stem: {
+            color: "brown"
+        },
+        bud: {
+            color: "darkolivegreen"
+        },
+        youngflower: {
+            color: "gold"
+        },
+        flower: {
+            color: "yellow"
+        },
+        boll: {
+            color: "white"
+        },
+        land: {
+            color: "black"
+        },
+    },
+    selectedLabel: "leaf",
+    setLabel: selectedLabel => set({ selectedLabel })
 }));
 
 export default useStore;

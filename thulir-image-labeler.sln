@@ -2,8 +2,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageLabeller", "ImageLabeller\ImageLabeller.csproj", "{12B7D93C-67FB-49EA-B6B7-13F82A49B1E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASP.NETCoreWebApplication1", "ASP.NETCoreWebApplication1\ASP.NETCoreWebApplication1.csproj", "{C2097262-F7EE-4515-9A21-FD861861B855}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageLabellerUnitTest", "ImageLabellerUnitTest\ImageLabellerUnitTest.csproj", "{F48F9969-D904-4316-82F0-73E48E09D87E}"
 EndProject
 Global
@@ -16,10 +14,6 @@ Global
 		{12B7D93C-67FB-49EA-B6B7-13F82A49B1E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{12B7D93C-67FB-49EA-B6B7-13F82A49B1E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{12B7D93C-67FB-49EA-B6B7-13F82A49B1E2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C2097262-F7EE-4515-9A21-FD861861B855}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C2097262-F7EE-4515-9A21-FD861861B855}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C2097262-F7EE-4515-9A21-FD861861B855}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C2097262-F7EE-4515-9A21-FD861861B855}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F48F9969-D904-4316-82F0-73E48E09D87E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F48F9969-D904-4316-82F0-73E48E09D87E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F48F9969-D904-4316-82F0-73E48E09D87E}.Release|Any CPU.ActiveCfg = Release|Any CPU

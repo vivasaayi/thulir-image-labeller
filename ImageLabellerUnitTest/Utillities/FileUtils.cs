@@ -1,3 +1,5 @@
+using ImageLabeller.Dals;
+using ImageLabeller.Models;
 using ImageLabeller.Repositories;
 using ImageLabeller.Utilities;
 using NUnit.Framework;

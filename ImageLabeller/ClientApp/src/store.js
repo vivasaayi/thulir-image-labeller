@@ -24,6 +24,11 @@ const useStore = create(set => ({
     brightness: 0,
     setBrightness: brightness => set({ brightness }),
 
+    currentImageInfo: null,
+    setCurrentImageInfo: currentImageInfo => set({currentImageInfo}),
+    
+    
+
     labels: {
         youngleaf: {
             color: "lightgreen"

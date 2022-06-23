@@ -1,4 +1,6 @@
+using ImageLabeller.Models;
 using ImageLabeller.Repositories;
+using ImageLabeller.Services;
 using ImageLabeller.WebModels;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,6 +12,7 @@ public class ImageController : ControllerBase
 {
     private LabelsRepository _labelsRepository = new LabelsRepository();
     private ImagesRepository _imagesRepository = new ImagesRepository();
+    private DataSetSyncService _dataSetSyncService = new DataSetSyncService();
     
     [HttpGet]
     public async Task<List<Image>> Get()
@@ -22,7 +25,7 @@ public class ImageController : ControllerBase
     {
         var images = _imagesRepository.GetImageNames();
 
-        return images[index++];
+        return images[++index];
     }
     
     [HttpGet("render-image")]
@@ -30,7 +33,7 @@ public class ImageController : ControllerBase
     {
         var images = _imagesRepository.GetImageNames();
 
-        var imagedetails = images[index++];
+        var imagedetails = images[index];
 
         var imageBytes = System.IO.File.ReadAllBytes(imagedetails.ImageLocation);  
         
@@ -53,5 +56,18 @@ public class ImageController : ControllerBase
         _labelsRepository.SaveLabels(imageLables);
 
         return imageLables;
+    }
+    
+    [HttpPost("sync-files-from-s3")]
+    public async Task<IActionResult> SyncFilesFromS3(string? s3key)
+    {
+        if (string.IsNullOrEmpty(s3key))
+        {
+            return Problem("Specify S3 Key");
+        }
+
+        var result = await _dataSetSyncService.SyncDataSetToDatabase(s3key);
+
+        return new JsonResult(result);
     }
 }

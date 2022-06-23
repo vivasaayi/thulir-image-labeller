@@ -46,6 +46,8 @@ function SortableItem(props) {
 export default () => {
     const regions = useStore(s => s.regions);
     const setRegions = useStore(s => s.setRegions);
+    
+    console.log(regions)
 
     const sensors = useSensors(
         useSensor(PointerSensor),

@@ -4,11 +4,15 @@ import useImage from "use-image";
 
 import useStore from "../store";
 
-const IMAGE_NUMBER = 1 + Math.round(Math.random() * 1);
-const IMAGE_URL = `/cotton.jpg`;
-
 export default () => {
-    const [image] = useImage(IMAGE_URL, "Anonymous");
+    const currentImageInfo = useStore(state => state.currentImageInfo);
+    
+    let imageUrl = "/"
+    if(currentImageInfo) {
+        imageUrl = `/image/render-image?index=${currentImageInfo.imageId}`
+    }
+    
+    const [image] = useImage(imageUrl, "Anonymous");
 
     const setImageSize = useStore(state => state.setImageSize);
     const setScale = useStore(state => state.setScale);

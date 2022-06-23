@@ -1,3 +1,7 @@
+using ImageLabeller.Dals;
+using ImageLabeller.Models;
+using ImageLabeller.Utilities;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -17,12 +21,22 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 
+await ConfigLoader.GetInstance().Init();
+ImageLabellerGlobals globals = await ConfigLoader.GetInstance().GetGlobals();
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller}/{action=Index}/{id?}");
 
 app.MapFallbackToFile("index.html");
-;
+
+
+PostgresDal.Init(new PostgresConfig(
+    globals.PostgresHost,
+    globals.PostgresUserName,
+    globals.PostgresPassword,
+    globals.PostgresDatabase)
+);
+
 
 app.Run();

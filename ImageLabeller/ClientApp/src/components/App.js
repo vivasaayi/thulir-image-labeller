@@ -5,6 +5,7 @@ import RegionsList from "./RegionsList";
 
 import useStore from "../store";
 import Labels from "./Labels";
+import ImageNavigator from "./ImageNavigator";
 
 export default () => {
     const { setBrightness } = useStore();
@@ -13,6 +14,9 @@ export default () => {
         <React.Fragment>
             <div className="App">
                 <div className="left-panel">
+                    <div>
+                        <ImageNavigator />
+                    </div>
                     <div>
                         <Labels />
                     </div>

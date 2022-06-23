@@ -31,7 +31,7 @@
     
     "reactstrap": "^8.9.0",
     "rimraf": "^2.6.2",
-                    
+    "axios": "^0.27.2",                
     "workbox-background-sync": "^5.1.3",   
     "workbox-broadcast-update": "^5.1.3",  
     "workbox-cacheable-response": "^5.1.3",

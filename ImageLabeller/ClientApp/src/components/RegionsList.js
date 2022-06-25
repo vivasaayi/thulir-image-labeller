@@ -14,31 +14,15 @@ import useStore from "../store";
 import {closestCenter, DndContext, KeyboardSensor, PointerSensor, useSensor, useSensors} from "@dnd-kit/core";
 
 
-function SortableItem(props) {
-    const {id} = props;
-    const {
-        attributes,
-        listeners,
-        setNodeRef,
-        transform,
-        transition,
-    } = useSortable({id: props.id});
-
-    const style = {
-        transform: CSS.Transform.toString(transform),
-        transition,
-    };
-
+function Region(props) {
+    const {id, region, onRemove} = props;
+    
     return (
-        <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
-            Region # {id}
-            <button
-                onClick={() => {
-                    // onRemove(id);
-                }}
-            >
-                Delete
-            </button>
+        <div>
+            Region # {id} {region.label}
+            <button onClick={() => {
+                onRemove(region);
+            }}>Delete</button>
         </div>
     );
 }
@@ -48,45 +32,25 @@ export default () => {
     const setRegions = useStore(s => s.setRegions);
     
     console.log(regions)
-
-    const sensors = useSensors(
-        useSensor(PointerSensor),
-        useSensor(KeyboardSensor, {
-            coordinateGetter: sortableKeyboardCoordinates,
-        })
-    );
+    
+    function onRemoveRegion(region) {
+        debugger;
+        var newRegions = [];
+        
+        regions.forEach(r => {
+            if(r.id !== region.id) {
+                newRegions.push(r)
+            }
+        });
+        
+        setRegions(newRegions);
+    }
 
     return (
         <div>
             <span>Found {regions.length}</span>
-            <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={(event) => {
-                const {active, over} = event;
 
-                if (active.id !== over.id) {
-                    debugger
-                    const activeIndex = findIndex(regions, function(r) { return r.id == active.id; });
-                    const overIndex = findIndex(regions, function(r) { return r.id == over.id; });
-
-                    const newRegions = arrayMoveImmutable(regions, activeIndex , overIndex)
-                    setRegions(newRegions)
-                }
-            }}>
-                <SortableContext
-                    items={regions}
-                    strategy={verticalListSortingStrategy}
-                    onSortEnd={({oldIndex, newIndex}) => {
-                        debugger
-                        setRegions(arrayMoveImmutable(regions, oldIndex, newIndex));
-                    }}
-                    onRemove={index => {
-                        regions.splice(index, 1);
-                        setRegions(regions.concat());
-                    }}
-                >
-                    {regions.map(region => <SortableItem key={region.id} id={region.id}/>)}
-                </SortableContext>
-            </DndContext>
-
+            {regions.map(region => <Region key={region.id} id={region.id} region={region} onRemove={onRemoveRegion}/>)}
         </div>
     );
 };

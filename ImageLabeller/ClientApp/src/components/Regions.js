@@ -16,7 +16,6 @@ export default () => {
         <Layer ref={layerRef}>
             {regions.map(region => {
                 const isSelected = region.id === selectedId;
-                debugger
                 const x1y1 = region.points[0];
                 const x2y2 = region.points[region.points.length -1]
                 const width = x2y2.x - x1y1.x;

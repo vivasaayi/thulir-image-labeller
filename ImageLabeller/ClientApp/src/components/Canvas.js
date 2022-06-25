@@ -7,8 +7,6 @@ import BaseImage from './BaseImage';
 
 import useStore from '../store';
 
-let id = 1;
-
 function getRelativePointerPosition(node) {
     // the function will return pointer position relative to the passed node
     const transform = node.getAbsoluteTransform().copy();
@@ -80,6 +78,9 @@ export default () => {
     const isDrawing = useStore((state) => state.isDrawing);
     const toggleDrawing = useStore((state) => state.toggleIsDrawing);
 
+    const regionSequenceId = useStore((state) => state.regionSequenceId);
+    const setRegionSequenceId = useStore((state) => state.setRegionSequenceId);
+    
     const regions = useStore((state) => state.regions);
     const setRegions = useStore((state) => state.setRegions);
 
@@ -130,10 +131,11 @@ export default () => {
                     toggleDrawing(true);
                     const point = getRelativePointerPosition(e.target.getStage());
                     const region = {
-                        id: id++,
+                        id: regionSequenceId,
                         label: selectedLabel,
                         points: [point],
                     };
+                    setRegionSequenceId(regionSequenceId+1)
                     setRegions(regions.concat([region]));
                 }}
                 onMouseMove={(e) => {

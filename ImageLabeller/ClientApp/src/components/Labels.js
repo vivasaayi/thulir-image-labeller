@@ -13,8 +13,6 @@ export default () => {
         setLabel(event.target.value)
     }
 
-    debugger
-
     return (
         <div>
             <select value={selectedLabel} onChange={handleChange}>

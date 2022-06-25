@@ -15,6 +15,9 @@ const useStore = create(set => ({
     isDrawing: false,
     toggleIsDrawing: () => set(state => ({ isDrawing: !state.isDrawing })),
 
+    regionSequenceId: 1,
+    setRegionSequenceId: regionSequenceId => set(state => ({ regionSequenceId })),
+    
     regions: [],
     setRegions: regions => set(state => ({ regions })),
 

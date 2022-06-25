@@ -9,6 +9,7 @@ export default () => {
     const currentImageInfo = useStore(state => state.currentImageInfo);
     const setCurrentImageInfo = useStore(state => state.setCurrentImageInfo);
 
+    const setRegionSequenceId = useStore((state) => state.setRegionSequenceId);
     const setRegions = useStore(state => state.setRegions);
     const selectRegion = useStore(state => state.selectRegion);
 
@@ -18,8 +19,10 @@ export default () => {
             .then(function (response) {
                 console.log("Retrieved Image Info", response.data);
                 selectRegion(null);
+                setRegionSequenceId(1);
                 setRegions([]);
-                setCurrentImageInfo(response.data)
+                setCurrentImageInfo(response.data);
+                
             });
     }
     

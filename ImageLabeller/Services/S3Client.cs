@@ -178,5 +178,30 @@ namespace ImageLabeller.Services
                 Console.WriteLine("Unknown encountered on server. Message:'{0}' when writing an object", e.Message);
             }
         }
+
+        public string GeneratePresignedUrl(string bucketName, string key)
+        {
+            var result = client.GetPreSignedURL(new GetPreSignedUrlRequest()
+            {
+                BucketName = bucketName,
+                Key = key,
+                ContentType = "image/jpeg",
+                Verb = HttpVerb.GET,
+                Expires = DateTime.Now.AddSeconds(100)
+            });
+
+            return result;
+        }
+
+        public async Task<Stream> GetObjectStream(string bucketName, string key)
+        {
+            var result = await client.GetObjectAsync(new GetObjectRequest()
+            {
+                BucketName = bucketName,
+                Key = key,
+            });
+
+            return result.ResponseStream;
+        }
     }
 }

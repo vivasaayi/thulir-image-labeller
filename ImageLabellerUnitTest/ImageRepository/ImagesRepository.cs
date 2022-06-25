@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using ImageLabeller.Repositories;
 using NUnit.Framework;
 
@@ -12,10 +13,10 @@ public class ImagesRepositoryTests
     }
 
     [Test]
-    public void Test1()
+    public async Task Test1()
     {
         ImagesRepository _imageRepo = new ImagesRepository();
-        var imageNames = _imageRepo.GetImageNames();
+        var imageNames = await _imageRepo.GetImageNames();
 
         Assert.GreaterOrEqual(imageNames.Count, 1000);
         Assert.AreEqual(imageNames[0].ImageLocation, "/Users/rajanp/Library/CloudStorage/OneDrive-SharedLibraries-onedrive/datasets/cotton/cotton sample 1/IMG20220526180822.jpg");

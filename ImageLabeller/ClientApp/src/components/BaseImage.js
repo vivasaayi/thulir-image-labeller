@@ -9,7 +9,7 @@ export default () => {
     
     let imageUrl = "/"
     if(currentImageInfo) {
-        imageUrl = `/image/render-image?index=${currentImageInfo.imageId}`
+        imageUrl = `/image/render-image-from-s3?index=${currentImageInfo.imageIndex}`
     }
     
     const [image] = useImage(imageUrl, "Anonymous");

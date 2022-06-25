@@ -14,7 +14,7 @@ export default () => {
 
     function loadNextImage() {
         debugger
-        var index = currentImageInfo ? currentImageInfo.imageId: -1;
+        var index = currentImageInfo ? currentImageInfo.imageIndex: -1;
         axios
             .get(`/image/next-image-info?index=${index}`)
             .then(function (response) {
@@ -27,7 +27,7 @@ export default () => {
     
     function saveAndLoadNextImage() {
         axios
-            .post(`/image/next-image-info?index=${currentImageInfo.imageId}`)
+            .post(`/image/next-image-info?index=${currentImageInfo.imageIndex}`)
             .then(function (response) {
                 console.log("Saved Image", response.data);
                 loadNextImage();
@@ -49,7 +49,7 @@ export default () => {
             <div>
                 <button onClick={loadNextImage}>Next Image</button>
             </div>
-            <span>{currentImageInfo.imageId} - {currentImageInfo.imageName}</span>
+            <span>{currentImageInfo.imageIndex} - {currentImageInfo.imageName}</span>
             <div>
                 <button onClick={saveAndLoadNextImage}>Save and Load Image</button>
             </div>

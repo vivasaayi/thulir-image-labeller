@@ -23,7 +23,7 @@ public class LabelsController : ControllerBase
         {
             Image = new Image()
             {
-                ImageId = imageId,
+                ImageIndex = imageId,
                 ImageName = "ABC",
                 ImageLocation = "cotton.jpg"
             }

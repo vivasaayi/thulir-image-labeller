@@ -12,7 +12,7 @@ public class LabelsRepository
         {
             Image = new Image()
             {
-                ImageId = 123,
+                ImageIndex = 123,
                 ImageName = "ABC",
                 ImageLocation = "cotton.jpg"
             }

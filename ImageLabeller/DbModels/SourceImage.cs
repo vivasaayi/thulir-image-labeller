@@ -4,15 +4,15 @@ namespace ImageLabeller.DbModels;
 
 public class SourceImage
 {
-    [JsonPropertyName("dt")] 
-    public double TimeStamp { get; set; }
+    [JsonPropertyName("imageid")] 
+    public Guid ImageId { get; set; }
 
-    [JsonPropertyName("temp_min")] 
-    public double TempMin { get; set; }
+    [JsonPropertyName("s3path")] 
+    public string S3Path { get; set; }
 
-    [JsonPropertyName("temp_max")] 
-    public double TempMax { get; set; }
-
-    [JsonPropertyName("pressure")] 
-    public double Pressure { get; set; }
+    [JsonPropertyName("indexedtime")] 
+    public DateTime IndexedTime { get; set; }
+    
+    [JsonPropertyName("rownumber")] 
+    public int RowNumber { get; set; }
 }

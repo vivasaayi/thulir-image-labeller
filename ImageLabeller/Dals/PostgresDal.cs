@@ -77,6 +77,12 @@ namespace ImageLabeller.Dals
             return result;
         }
         
+        public async Task<IEnumerable<dynamic>> ExecuteQuery(string command, Object parameters)
+        {
+            var result   = await GetConnection().QueryAsync(command, parameters);
+            return result;
+        }
+        
         public async Task InsertRecord(string command, Object parameters)
         {
             await GetConnection().QueryAsync(command, parameters);

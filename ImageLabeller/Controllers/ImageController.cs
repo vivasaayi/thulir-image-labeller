@@ -1,3 +1,5 @@
+using Amazon;
+using Amazon.S3.Model;
 using ImageLabeller.Models;
 using ImageLabeller.Repositories;
 using ImageLabeller.Services;
@@ -14,24 +16,39 @@ public class ImageController : ControllerBase
     private ImagesRepository _imagesRepository = new ImagesRepository();
     private DataSetSyncService _dataSetSyncService = new DataSetSyncService();
     
+    
     [HttpGet]
     public async Task<List<Image>> Get()
     {
-        return _imagesRepository.GetImageNames();
+        return await _imagesRepository.GetImageNames();
     }
     
     [HttpGet("next-image-info")]
     public async Task<Image> GetNextImage(int index)
     {
-        var images = _imagesRepository.GetImageNames();
+        var imageDetails = await _imagesRepository.GetImageAtIndex(++index);
 
-        return images[++index];
+        return imageDetails;
+    }
+
+    [HttpGet("render-image-from-s3")]
+    public async Task<FileContentResult> RenderImageFromS3(int index)
+    {
+        var images = await _imagesRepository.GetImageNames();
+
+        var imagedetails = images[index];
+
+        var stream = await _imagesRepository.DownloadFile(imagedetails.ImageLocation);
+        
+        var imageBytes = new BinaryReader(stream).ReadBytes((int)stream.Length);  
+        
+        return File(imageBytes, "image/jpeg");
     }
     
-    [HttpGet("render-image")]
-    public async Task<FileContentResult> RenderImage(int index)
+    [HttpGet("render-image-from-file")]
+    public async Task<FileContentResult> RenderImageFromFile(int index)
     {
-        var images = _imagesRepository.GetImageNames();
+        var images = await _imagesRepository.GetImageNames();
 
         var imagedetails = images[index];
 
@@ -47,7 +64,7 @@ public class ImageController : ControllerBase
         {
             Image = new Image()
             {
-                ImageId = imageId,
+                ImageIndex = imageId,
                 ImageName = "ABC",
                 ImageLocation = "cotton.jpg"
             }

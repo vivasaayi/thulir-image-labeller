@@ -63,26 +63,24 @@ export default () => {
     return (
         <div>
             <br />
-            <br />
             <div>
                 <button onClick={loadPreviousImage}>Previous Image</button>
             </div>
-            <br />
             <br />
             <div>
                 <button onClick={loadNextImage}>Next Image</button>
             </div>
             <span>{currentImageInfo.imageIndex} - {currentImageInfo.imageName}</span>
             <br />
-            <br />
             <div>
                 <button onClick={saveImageLabels}>Save</button>
             </div>
             <br />
-            <br />
             <div>
                 <button onClick={saveAndLoadNextImage}>Save and Load Image</button>
             </div>
+            <br />
+            <br />
         </div>
     );
 };

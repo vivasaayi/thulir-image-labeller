@@ -26,6 +26,7 @@ export default () => {
                 );
             })}
             </select>
+            <br />
             <div style={{background: labelDetails.color}}>
                 Selected <br/>
                 {selectedLabel}

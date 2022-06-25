@@ -57,6 +57,21 @@ const useStore = create(set => ({
         land: {
             color: "black"
         },
+        weed: {
+            color: "pink"
+        },
+        gressweed: {
+            color: "darkblue"
+        },
+        dryweed: {
+            color: "purple"
+        },
+        drygrassweed: {
+            color: "indigo"
+        },
+        dryriceplantroot: {
+            color: "blue"
+        },
     },
     selectedLabel: "leaf",
     setLabel: selectedLabel => set({ selectedLabel })

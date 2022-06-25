@@ -1,5 +1,5 @@
 import React from "react";
-import {Layer, Line, Rect} from "react-konva";
+import {Layer, Line, Rect, Text} from "react-konva";
 
 import useStore from "../store";
 
@@ -24,6 +24,8 @@ export default () => {
                 return (
                     <React.Fragment key={region.id}>
                         <Rect
+                            key={region.id + ""}
+                            id={region.id + ""}
                             x={x1y1.x}
                             y={x1y1.y}
                             width={width}
@@ -31,10 +33,18 @@ export default () => {
                             fill={selectedColor}
                             listening={false}
                             opacity={isSelected ? 1 : 0.8}
+                            draggable
                             onClick={() => {
                                 selectRegion(region.id);
                             }}
                         />
+                        <Text text={region.id} 
+                              fontSize={150}
+                              key={region.id + "A"}
+                              id={region.id + "A"}
+                              x={x1y1.x}
+                              y={x1y1.y}
+                              stroke="black"/>
                     </React.Fragment>
                 );
             })}

@@ -1,5 +1,4 @@
 import React from 'react';
-import Konva from 'konva';
 import { Stage } from 'react-konva';
 
 import Regions from './Regions';
@@ -108,12 +107,33 @@ export default () => {
                 scaleX={scale}
                 scaleY={scale}
                 className="canvas"
-                onClick={(e) => {
-                    const clickedNotOnRegion = e.target.name() !== 'region';
-                    if (clickedNotOnRegion) {
-                        selectRegion(null);
-                    }
+                onDblClick={(e) => {
+                    // console.log(e.target.name())
+                    // console.log(e.target)
+                    // const clickedNotOnRegion = e.target.name() !== 'region';
+                    //
+                    // console.log(e.target.name())
+                    //
+                    // if (clickedNotOnRegion) {
+                    //     selectRegion(null);
+                    // }
                 }}
+                // onClick={(e) => {
+                //     if(isDrawing) {
+                //         toggleDrawing(true);
+                //     } else {
+                //         toggleDrawing(false);
+                //     }
+                //        
+                //     const point = getRelativePointerPosition(e.target.getStage());
+                //     const region = {
+                //         id: regionSequenceId,
+                //         label: selectedLabel,
+                //         points: [point],
+                //     };
+                //     setRegionSequenceId(regionSequenceId+1)
+                //     setRegions(regions.concat([region]));
+                // }}
                 onWheel={(e) => {
                     e.evt.preventDefault();
                     const stage = stageRef.current;
@@ -177,6 +197,13 @@ export default () => {
                     }}
                 >
                     -
+                </button>
+                <button
+                    onClick={() => {
+                        toggleDrawing();
+                    }}
+                >
+                    Draw
                 </button>
             </div>
         </React.Fragment>

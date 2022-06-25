@@ -12,9 +12,7 @@ export default () => {
     const setRegions = useStore(state => state.setRegions);
     const selectRegion = useStore(state => state.selectRegion);
 
-    function loadNextImage() {
-        debugger
-        var index = currentImageInfo ? currentImageInfo.imageIndex: -1;
+    function loadImage(index) {
         axios
             .get(`/image/next-image-info?index=${index}`)
             .then(function (response) {
@@ -23,6 +21,24 @@ export default () => {
                 setRegions([]);
                 setCurrentImageInfo(response.data)
             });
+    }
+    
+    function loadNextImage() {
+        var index = currentImageInfo ? currentImageInfo.imageIndex: -1;
+        loadImage(index)   
+    }
+    
+    function loadPreviousImage() {
+        var index = currentImageInfo ? currentImageInfo.imageIndex: -1;
+        index = index - 2;
+        if(index < 0) {
+            index = -1;
+        }
+        loadImage(index);
+    }
+    
+    function saveImageLabels() {
+        
     }
     
     function saveAndLoadNextImage() {
@@ -46,10 +62,24 @@ export default () => {
     
     return (
         <div>
+            <br />
+            <br />
+            <div>
+                <button onClick={loadPreviousImage}>Previous Image</button>
+            </div>
+            <br />
+            <br />
             <div>
                 <button onClick={loadNextImage}>Next Image</button>
             </div>
             <span>{currentImageInfo.imageIndex} - {currentImageInfo.imageName}</span>
+            <br />
+            <br />
+            <div>
+                <button onClick={saveImageLabels}>Save</button>
+            </div>
+            <br />
+            <br />
             <div>
                 <button onClick={saveAndLoadNextImage}>Save and Load Image</button>
             </div>

@@ -17,7 +17,7 @@ public class ImagesRepository
     private string _path = "/Users/rajanp/Library/CloudStorage/OneDrive-SharedLibraries-onedrive/datasets/cotton/cotton sample 1";
     
     private PostgresDal _dal;
-    private List<SourceImage> _images = new List<SourceImage>();
+    private static List<SourceImage> _images = new List<SourceImage>();
 
     private Dictionary<Guid, string> _presignedUrls = new Dictionary<Guid, string>();
     private S3Client _client = new S3Client(RegionEndpoint.USWest2);
@@ -101,9 +101,33 @@ public class ImagesRepository
         return result;
     }
 
-    public async Task<Stream> DownloadFile(string key)
+    async Task<Stream> DownloadFile(string key)
     {
         var result = await _client.GetObjectStream("myagridataset", key);
         return result;
+    }
+    
+    public async Task<byte[]> GetCachesS3File(string s3Key)
+    {
+        var basePath = "/Users/rajanp/datasets_local/";
+        var localFilePath = basePath + s3Key;
+
+        if (File.Exists(localFilePath))
+        {
+            return await System.IO.File.ReadAllBytesAsync(localFilePath);
+        }
+
+        var imageFolder = localFilePath.Substring(0, localFilePath.LastIndexOf("/"));
+
+        if (!Directory.Exists(imageFolder))
+        {
+            Directory.CreateDirectory(imageFolder);
+        }
+        
+        var stream = await DownloadFile(s3Key);
+        var imageBytes = new BinaryReader(stream).ReadBytes((int)stream.Length);
+        await File.WriteAllBytesAsync(localFilePath, imageBytes);
+
+        return imageBytes;
     }
 }

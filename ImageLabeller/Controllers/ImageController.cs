@@ -38,11 +38,9 @@ public class ImageController : ControllerBase
 
         var imagedetails = images[index];
 
-        var stream = await _imagesRepository.DownloadFile(imagedetails.ImageLocation);
+        var image = await _imagesRepository.GetCachesS3File(imagedetails.ImageLocation);
         
-        var imageBytes = new BinaryReader(stream).ReadBytes((int)stream.Length);  
-        
-        return File(imageBytes, "image/jpeg");
+        return File(image, "image/jpeg");
     }
     
     [HttpGet("render-image-from-file")]

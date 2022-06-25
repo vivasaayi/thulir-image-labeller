@@ -18,11 +18,12 @@ export default () => {
         axios
             .get(`/image/next-image-info?currentIndex=${index}`)
             .then(function (response) {
+                debugger
                 console.log("Retrieved Image Info", response.data);
                 selectRegion(null);
                 setRegionSequenceId(1);
-                setRegions([]);
-                setCurrentImageInfo(response.data);
+                setRegions(response.data.imageLabels.labels);
+                setCurrentImageInfo(response.data.sourceImage);
             });
     }
     
@@ -53,20 +54,10 @@ export default () => {
         
         console.log(currentImageInfo, regions);
 
-        axios
+        return axios
             .post(`/labels?imageId=${currentImageInfo.imageId}`, regions)
             .then(function (response) {
                 console.log("Saved Image", response.data);
-                loadNextImage();
-            });
-    }
-    
-    function saveAndLoadNextImage() {
-        axios
-            .post(`/image/next-image-info?currentIndex=${currentImageInfo.imageIndex}`)
-            .then(function (response) {
-                console.log("Saved Image", response.data);
-                loadNextImage();
             });
     }
     
@@ -96,10 +87,6 @@ export default () => {
             <br />
             <div>
                 <button onClick={saveImageLabels}>Save</button>
-            </div>
-            <br />
-            <div>
-                <button onClick={saveAndLoadNextImage}>Save and Load Image</button>
             </div>
             <br />
             <br />

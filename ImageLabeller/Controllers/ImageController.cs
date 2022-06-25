@@ -4,6 +4,7 @@ using ImageLabeller.DbModels;
 using ImageLabeller.Models;
 using ImageLabeller.Repositories;
 using ImageLabeller.Services;
+using ImageLabeller.WebModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ImageLabeller.Controllers;
@@ -24,11 +25,17 @@ public class ImageController : ControllerBase
     }
     
     [HttpGet("next-image-info")]
-    public async Task<SourceImage> GetNextImage(int currentIndex)
+    public async Task<ImageDetailsResponse> GetNextImage(int currentIndex)
     {
         var imageDetails = await _imagesRepository.GetImageAtIndex(++currentIndex);
 
-        return imageDetails;
+        var imageLabels = await _labelsRepository.GetLabels(imageDetails.ImageId);
+
+        return new ImageDetailsResponse()
+        {
+            SourceImage = imageDetails,
+            ImageLabels = imageLabels
+        };
     }
 
     [HttpGet("render-image-from-s3")]

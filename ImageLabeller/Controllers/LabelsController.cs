@@ -14,7 +14,7 @@ public class LabelsController : ControllerBase
     [HttpGet]
     public async Task<ImageLabels> Get(string? imageId)
     {
-        return _labelsRepository.GetLables(imageId);
+        return null; //_labelsRepository.GetLables(imageId);
     }
     
     [HttpPost]
@@ -28,7 +28,7 @@ public class LabelsController : ControllerBase
             }
         };
         
-        _labelsRepository.SaveLabels(imageLables);
+        _labelsRepository.SaveLabels(Guid.NewGuid(), null);
 
         return imageLables;
     }

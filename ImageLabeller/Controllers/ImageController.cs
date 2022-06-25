@@ -65,7 +65,7 @@ public class ImageController : ControllerBase
             }
         };
         
-        _labelsRepository.SaveLabels(imageLables);
+        _labelsRepository.SaveLabels(Guid.NewGuid(), null);
 
         return imageLables;
     }

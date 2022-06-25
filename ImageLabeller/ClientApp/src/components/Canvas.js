@@ -164,7 +164,7 @@ export default () => {
                     }
                     const lastRegion = { ...regions[regions.length - 1] };
                     const point = getRelativePointerPosition(e.target.getStage());
-                    lastRegion.points = lastRegion.points.concat([point]);
+                    lastRegion.points[1] = point;
                     regions.splice(regions.length - 1, 1);
                     setRegions(regions.concat([lastRegion]));
                 }}
@@ -173,7 +173,7 @@ export default () => {
                         return;
                     }
                     const lastRegion = regions[regions.length - 1];
-                    if (lastRegion.points.length < 3) {
+                    if (lastRegion.points.length < 2) {
                         regions.splice(regions.length - 1, 1);
                         setRegions(regions.concat());
                     }

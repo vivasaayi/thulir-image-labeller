@@ -12,6 +12,7 @@ export default () => {
     const setRegionSequenceId = useStore((state) => state.setRegionSequenceId);
     const setRegions = useStore(state => state.setRegions);
     const selectRegion = useStore(state => state.selectRegion);
+    const regions = useStore(s => s.regions);
 
     function loadImage(index) {
         axios
@@ -22,7 +23,6 @@ export default () => {
                 setRegionSequenceId(1);
                 setRegions([]);
                 setCurrentImageInfo(response.data);
-                
             });
     }
     
@@ -41,7 +41,17 @@ export default () => {
     }
     
     function saveImageLabels() {
+        if(!currentImageInfo) {
+            alert("Please select an image");
+            return;
+        }
         
+        if(regions.length <=0) {
+            alert("Please add some labels");
+            return;
+        }
+        
+        console.log(currentImageInfo, regions);
     }
     
     function saveAndLoadNextImage() {
@@ -74,6 +84,8 @@ export default () => {
                 <button onClick={loadNextImage}>Next Image</button>
             </div>
             <span>{currentImageInfo.imageIndex} - {currentImageInfo.imageName}</span>
+            <br />
+            <br />
             <br />
             <div>
                 <button onClick={saveImageLabels}>Save</button>

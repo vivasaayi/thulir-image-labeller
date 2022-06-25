@@ -23,7 +23,7 @@ public class DataSetSyncServiceTest
             globals.PostgresDatabase)
         );
 
-        PostgresDal.GetConnection().Query("truncate table  public.sourceimages");
+        // PostgresDal.GetConnection().Query("truncate table  public.sourceimages");
     }
     [Test]
     public async Task Test1()

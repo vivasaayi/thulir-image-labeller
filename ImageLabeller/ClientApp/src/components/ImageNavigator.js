@@ -52,6 +52,13 @@ export default () => {
         }
         
         console.log(currentImageInfo, regions);
+
+        axios
+            .post(`/labels?imageId=${currentImageInfo.imageId}`, regions)
+            .then(function (response) {
+                console.log("Saved Image", response.data);
+                loadNextImage();
+            });
     }
     
     function saveAndLoadNextImage() {

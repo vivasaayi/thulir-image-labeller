@@ -1,7 +1,9 @@
+using System.Text;
+using System.Text.Json;
 using ImageLabeller.DbModels;
 using ImageLabeller.Repositories;
-using ImageLabeller.WebModels;
 using Microsoft.AspNetCore.Mvc;
+using Label = ImageLabeller.DbModels.Label;
 
 namespace ImageLabeller.Controllers;
 
@@ -12,24 +14,26 @@ public class LabelsController : ControllerBase
     private LabelsRepository _labelsRepository = new LabelsRepository();
     
     [HttpGet]
-    public async Task<ImageLabels> Get(string? imageId)
+    public async Task<Label> Get(Guid imageId)
     {
         return null; //_labelsRepository.GetLables(imageId);
     }
     
     [HttpPost]
-    public async Task<ImageLabels> Post(int imageId)
+    public async Task Post(Guid imageId)
     {
-        var imageLables = new ImageLabels()
-        {
-            Image = new SourceImage()
-            {
-                ImageIndex = imageId,
-            }
-        };
-        
-        _labelsRepository.SaveLabels(Guid.NewGuid(), null);
+        using (StreamReader reader = new StreamReader(Request.Body, Encoding.UTF8))
+        {  
+            var data = await reader.ReadToEndAsync();
+            var labels = JsonSerializer.Deserialize<Label[]>(data);
 
-        return imageLables;
+            var imageLabel = new ImageLabel()
+            {
+                ImageId = imageId,
+                Labels = labels.ToList()
+            };
+            
+            await _labelsRepository.SaveLabels(imageId, imageLabel);
+        }
     }
 }

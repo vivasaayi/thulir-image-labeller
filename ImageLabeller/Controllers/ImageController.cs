@@ -4,7 +4,6 @@ using ImageLabeller.DbModels;
 using ImageLabeller.Models;
 using ImageLabeller.Repositories;
 using ImageLabeller.Services;
-using ImageLabeller.WebModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ImageLabeller.Controllers;
@@ -53,23 +52,7 @@ public class ImageController : ControllerBase
         
         return File(imageBytes, "image/jpeg");
     }
-    
-    [HttpPost]
-    public async Task<ImageLabels> Post(int imageId)
-    {
-        var imageLables = new ImageLabels()
-        {
-            Image = new SourceImage()
-            {
-                ImageIndex = imageId,
-            }
-        };
-        
-        _labelsRepository.SaveLabels(Guid.NewGuid(), null);
 
-        return imageLables;
-    }
-    
     [HttpPost("sync-files-from-s3")]
     public async Task<IActionResult> SyncFilesFromS3(string? s3key)
     {

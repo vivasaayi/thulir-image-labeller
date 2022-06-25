@@ -3,8 +3,6 @@ using Amazon.Internal;
 using ImageLabeller.Dals;
 using ImageLabeller.DbModels;
 using ImageLabeller.Services;
-using ImageLabeller.Utilities;
-using ImageLabeller.WebModels;
 using Npgsql;
 
 namespace ImageLabeller.Repositories;

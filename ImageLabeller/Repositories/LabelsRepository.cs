@@ -1,7 +1,6 @@
 using Dapper;
 using ImageLabeller.Dals;
 using ImageLabeller.DbModels;
-using ImageLabeller.WebModels;
 using Npgsql;
 using Label = ImageLabeller.DbModels.Label;
 
@@ -14,7 +13,7 @@ public class LabelsRepository
     public LabelsRepository()
     {
         _dal = PostgresDal.GetInstance();
-        SqlMapper.AddTypeHandler(new GenericTypeHandler<Label>());
+        SqlMapper.AddTypeHandler(new GenericTypeHandler<List<Label>>());
         SqlMapper.AddTypeHandler(new GenericTypeHandler<Point>());
     }
 
@@ -39,7 +38,7 @@ public class LabelsRepository
         return new ImageLabel();
     }
 
-    public async Task SaveLabels(Guid imageId, ImageLabeller.DbModels.ImageLabel label)
+    public async Task SaveLabels(Guid imageId, ImageLabel label)
     {
         try
         {

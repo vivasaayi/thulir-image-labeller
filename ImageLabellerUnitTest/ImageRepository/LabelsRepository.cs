@@ -33,35 +33,41 @@ public class LabelsRepositoryTest
         LabelsRepository _labelsRepository = new LabelsRepository();
 
         var guid = Guid.NewGuid();
+
+        var label1 = new Label()
+        {
+            Id = 123,
+            LabelName = "ABC",
+            Points = new List<Point>()
+            {
+                new Point() {X = 111, Y = 222}
+            }
+        };
+        
         var label = new ImageLabel()
         {
-            Labels = new Label()
+            Labels = new List<Label>()
             {
-                Id = 123,
-                LabelName = "ABC",
-                Points = new List<Point>()
-                {
-                    new Point() {X = 111, Y = 222}
-                }
+                label1
             }
         };
         
         await _labelsRepository.SaveLabels(guid, label);
         var result = await _labelsRepository.GetLabels(guid);
         
-        Assert.AreEqual(result.Labels.Id, 123);
-        Assert.AreEqual(result.Labels.LabelName, "ABC");
-        Assert.AreEqual(result.Labels.Points[0].X, 111);
-        Assert.AreEqual(result.Labels.Points[0].Y, 222);
+        Assert.AreEqual(result.Labels[0].Id, 123);
+        Assert.AreEqual(result.Labels[0].LabelName, "ABC");
+        Assert.AreEqual(result.Labels[0].Points[0].X, 111);
+        Assert.AreEqual(result.Labels[0].Points[0].Y, 222);
         
         
         await _labelsRepository.SaveLabels(guid, label);
         result = await _labelsRepository.GetLabels(guid);
         
-        Assert.AreEqual(result.Labels.Id, 123);
-        Assert.AreEqual(result.Labels.LabelName, "ABC");
-        Assert.AreEqual(result.Labels.Points[0].X, 111);
-        Assert.AreEqual(result.Labels.Points[0].Y, 222);
+        Assert.AreEqual(result.Labels[0].Id, 123);
+        Assert.AreEqual(result.Labels[0].LabelName, "ABC");
+        Assert.AreEqual(result.Labels[0].Points[0].X, 111);
+        Assert.AreEqual(result.Labels[0].Points[0].Y, 222);
         
         Assert.Pass();
     }

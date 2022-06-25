@@ -14,7 +14,7 @@ export default () => {
 
     function loadImage(index) {
         axios
-            .get(`/image/next-image-info?index=${index}`)
+            .get(`/image/next-image-info?currentIndex=${index}`)
             .then(function (response) {
                 console.log("Retrieved Image Info", response.data);
                 selectRegion(null);
@@ -24,15 +24,15 @@ export default () => {
     }
     
     function loadNextImage() {
-        var index = currentImageInfo ? currentImageInfo.imageIndex: -1;
+        var index = currentImageInfo ? currentImageInfo.imageIndex: 0;
         loadImage(index)   
     }
     
     function loadPreviousImage() {
-        var index = currentImageInfo ? currentImageInfo.imageIndex: -1;
+        var index = currentImageInfo ? currentImageInfo.imageIndex: 0;
         index = index - 2;
         if(index < 0) {
-            index = -1;
+            index = 0;
         }
         loadImage(index);
     }
@@ -43,7 +43,7 @@ export default () => {
     
     function saveAndLoadNextImage() {
         axios
-            .post(`/image/next-image-info?index=${currentImageInfo.imageIndex}`)
+            .post(`/image/next-image-info?currentIndex=${currentImageInfo.imageIndex}`)
             .then(function (response) {
                 console.log("Saved Image", response.data);
                 loadNextImage();

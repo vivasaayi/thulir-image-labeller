@@ -1,3 +1,4 @@
+using ImageLabeller.DbModels;
 using ImageLabeller.WebModels;
 
 namespace ImageLabeller.Repositories;
@@ -10,11 +11,10 @@ public class LabelsRepository
     {
         _imageLabel = new ImageLabels()
         {
-            Image = new Image()
+            Image = new SourceImage()
             {
                 ImageIndex = 123,
-                ImageName = "ABC",
-                ImageLocation = "cotton.jpg"
+                S3Path = "cotton.jpg"
             }
         };
         

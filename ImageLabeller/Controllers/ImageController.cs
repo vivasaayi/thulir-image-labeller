@@ -1,5 +1,6 @@
 using Amazon;
 using Amazon.S3.Model;
+using ImageLabeller.DbModels;
 using ImageLabeller.Models;
 using ImageLabeller.Repositories;
 using ImageLabeller.Services;
@@ -18,27 +19,25 @@ public class ImageController : ControllerBase
     
     
     [HttpGet]
-    public async Task<List<Image>> Get()
+    public async Task<List<SourceImage>> Get()
     {
         return await _imagesRepository.GetImageNames();
     }
     
     [HttpGet("next-image-info")]
-    public async Task<Image> GetNextImage(int index)
+    public async Task<SourceImage> GetNextImage(int currentIndex)
     {
-        var imageDetails = await _imagesRepository.GetImageAtIndex(++index);
+        var imageDetails = await _imagesRepository.GetImageAtIndex(++currentIndex);
 
         return imageDetails;
     }
 
     [HttpGet("render-image-from-s3")]
-    public async Task<FileContentResult> RenderImageFromS3(int index)
+    public async Task<FileContentResult> RenderImageFromS3(Guid id)
     {
-        var images = await _imagesRepository.GetImageNames();
+        var imagedetails = await _imagesRepository.GetImageById(id);
 
-        var imagedetails = images[index];
-
-        var image = await _imagesRepository.GetCachesS3File(imagedetails.ImageLocation);
+        var image = await _imagesRepository.GetCachesS3File(imagedetails.S3Path);
         
         return File(image, "image/jpeg");
     }
@@ -50,7 +49,7 @@ public class ImageController : ControllerBase
 
         var imagedetails = images[index];
 
-        var imageBytes = System.IO.File.ReadAllBytes(imagedetails.ImageLocation);  
+        var imageBytes = System.IO.File.ReadAllBytes(imagedetails.LocalFilePath);  
         
         return File(imageBytes, "image/jpeg");
     }
@@ -60,11 +59,9 @@ public class ImageController : ControllerBase
     {
         var imageLables = new ImageLabels()
         {
-            Image = new Image()
+            Image = new SourceImage()
             {
                 ImageIndex = imageId,
-                ImageName = "ABC",
-                ImageLocation = "cotton.jpg"
             }
         };
         

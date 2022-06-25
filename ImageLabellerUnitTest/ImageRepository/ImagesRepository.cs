@@ -19,12 +19,12 @@ public class ImagesRepositoryTests
         var imageNames = await _imageRepo.GetImageNames();
 
         Assert.GreaterOrEqual(imageNames.Count, 1000);
-        Assert.AreEqual(imageNames[0].ImageLocation, "/Users/rajanp/Library/CloudStorage/OneDrive-SharedLibraries-onedrive/datasets/cotton/cotton sample 1/IMG20220526180822.jpg");
-        Assert.AreEqual(imageNames[0].ImageName, "IMG20220526180822.jpg");
+        Assert.AreEqual(imageNames[0].S3Path, "/Users/rajanp/Library/CloudStorage/OneDrive-SharedLibraries-onedrive/datasets/cotton/cotton sample 1/IMG20220526180822.jpg");
+        Assert.AreEqual(imageNames[0].S3Path, "IMG20220526180822.jpg");
         Assert.AreEqual(0, imageNames[0].ImageId);
         
-        Assert.AreEqual(imageNames[3].ImageLocation, "/Users/rajanp/Library/CloudStorage/OneDrive-SharedLibraries-onedrive/datasets/cotton/cotton sample 1/IMG20220527180544 1.jpg");
-        Assert.AreEqual(imageNames[3].ImageName, "IMG20220527180544 1.jpg");
+        Assert.AreEqual(imageNames[3].S3Path, "/Users/rajanp/Library/CloudStorage/OneDrive-SharedLibraries-onedrive/datasets/cotton/cotton sample 1/IMG20220527180544 1.jpg");
+        Assert.AreEqual(imageNames[3].S3Path, "IMG20220527180544 1.jpg");
         Assert.AreEqual(imageNames[3].ImageId, 3);
         
         Assert.Pass();

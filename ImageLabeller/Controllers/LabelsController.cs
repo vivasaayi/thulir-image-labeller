@@ -1,3 +1,4 @@
+using ImageLabeller.DbModels;
 using ImageLabeller.Repositories;
 using ImageLabeller.WebModels;
 using Microsoft.AspNetCore.Mvc;
@@ -21,11 +22,9 @@ public class LabelsController : ControllerBase
     {
         var imageLables = new ImageLabels()
         {
-            Image = new Image()
+            Image = new SourceImage()
             {
                 ImageIndex = imageId,
-                ImageName = "ABC",
-                ImageLocation = "cotton.jpg"
             }
         };
         

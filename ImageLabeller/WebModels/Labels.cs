@@ -1,3 +1,5 @@
+using ImageLabeller.DbModels;
+
 namespace ImageLabeller.WebModels;
 
 public class Label
@@ -11,13 +13,13 @@ public class Label
 
 public class ImageLabels
 {
-    public Image Image { get; set; }
+    public SourceImage Image { get; set; }
     
     public List<Label> Labels { get; set; }
 
     public ImageLabels()
     {
-        Image = new Image();
+        Image = new SourceImage();
         Labels = new List<Label>();
     }
 }

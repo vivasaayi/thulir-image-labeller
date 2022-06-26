@@ -19,6 +19,7 @@
     "use-image": "^1.0.12",
     "web-vitals": "^2.1.4",
     "zustand": "^4.0.0-rc.1",
+    "react-spinners": "^0.12.0",
     
     "bootstrap": "^5.1.0",
     "http-proxy-middleware": "^0.19.1",

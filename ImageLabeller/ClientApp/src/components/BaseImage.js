@@ -20,7 +20,7 @@ export default () => {
     const width = useStore(state => state.width);
     const height = useStore(state => state.height);
 
-    const { brightness } = useStore();
+    const brightness = 0;
 
     React.useEffect(() => {
         if (!image) {

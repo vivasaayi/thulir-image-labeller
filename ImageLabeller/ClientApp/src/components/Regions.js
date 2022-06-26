@@ -5,6 +5,7 @@ import useStore from "../store";
 
 export default () => {
     const regions = useStore(s => s.regions);
+    const { brightness } = useStore();
     const layerRef = React.useRef(null);
 
     const selectedId = useStore(s => s.selectedRigionId);
@@ -32,14 +33,14 @@ export default () => {
                             height={height}
                             fill={selectedColor}
                             listening={false}
-                            opacity={isSelected ? 1 : 0.8}
+                            opacity={isSelected ? 1 : brightness}
                             draggable
                             onClick={() => {
                                 selectRegion(region.id);
                             }}
                         />
                         <Text text={region.id} 
-                              fontSize={150}
+                              fontSize={20}
                               key={region.id + "A"}
                               id={region.id + "A"}
                               x={x1y1.x}

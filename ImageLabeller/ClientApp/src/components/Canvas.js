@@ -3,8 +3,10 @@ import { Stage } from 'react-konva';
 
 import Regions from './Regions';
 import BaseImage from './BaseImage';
+import PropagateLoader from "react-spinners/PropagateLoader";
 
 import useStore from '../store';
+
 
 function getRelativePointerPosition(node) {
     // the function will return pointer position relative to the passed node
@@ -98,8 +100,10 @@ export default () => {
         window.addEventListener('resize', checkSize);
         return () => window.removeEventListener('resize', checkSize);
     }, []);
+    
     return (
         <React.Fragment>
+
             <Stage
                 ref={stageRef}
                 width={width}

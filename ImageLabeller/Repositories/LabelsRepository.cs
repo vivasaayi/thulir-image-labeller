@@ -28,7 +28,12 @@ public class LabelsRepository
                 imageid = imageId
             });
 
-            return result.ToList()[0];
+            if (result.Any())
+            {
+                return result.ToList()[0];    
+            }
+
+            return new ImageLabel();
         }
         catch (PostgresException err)
         {

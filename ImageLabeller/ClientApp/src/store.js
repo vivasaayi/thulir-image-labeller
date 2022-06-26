@@ -29,8 +29,12 @@ const useStore = create(set => ({
 
     currentImageInfo: null,
     setCurrentImageInfo: currentImageInfo => set({currentImageInfo}),
-    
-    
+
+    newIndexVal: 0,
+    setNewIndexVal: newIndexVal => set({newIndexVal}),
+
+    isLoading: false,
+    setLoading: isLoading => set({isLoading}),
 
     labels: {
         youngleaf: {
@@ -39,14 +43,26 @@ const useStore = create(set => ({
         leaf: {
             color: "green"
         },
+        unhealthyleaf: {
+            color: "darkgreen"
+        },
         dryleaf: {
             color: "grey"
         },
         stem: {
             color: "brown"
         },
+        crown: {
+            color: "darkred"
+        },
         bud: {
             color: "darkolivegreen"
+        },
+        youngboll: {
+            color: "darkblue"
+        },
+        damagedboll: {
+            color: "red"
         },
         youngflower: {
             color: "gold"
@@ -65,6 +81,9 @@ const useStore = create(set => ({
         },
         gressweed: {
             color: "darkblue"
+        },
+        arugampulweed: {
+            color: "darkyellow"
         },
         dryweed: {
             color: "purple"
